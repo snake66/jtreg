@@ -174,9 +174,9 @@ else
 TIDY	= /usr/bin/tidy
 endif
 TOUCH 	= /usr/bin/touch
-UNZIP 	= /usr/bin/unzip
+UNZIP 	= unzip
 WC 	= /usr/bin/wc
-ZIP 	= /usr/bin/zip
+ZIP 	= zip
 
 
 #----------------------------------------------------------------------
