@@ -765,13 +765,23 @@ if [ -n "${SKIP_MAKE:-}" ]; then
     exit
 fi
 
+MAKE=make
+setup_make() {
+    case `uname` in
+      FreeBSD )
+          MAKE=gmake ;;
+    esac
+}
+setup_make
+info "MAKE=${MAKE}"
+
 # save make command for possible later reuse, bypassing this script
 mkdir -p ${BUILD_DIR}
 cat > ${BUILD_DIR}/make.sh << EOF
 #!/bin/sh
 
 cd "${ROOT}/make"
-make ASMTOOLS_JAR="${ASMTOOLS_JAR}"                           \\
+${MAKE} ASMTOOLS_JAR="${ASMTOOLS_JAR}"                           \\
      ASMTOOLS_NOTICES="${ASMTOOLS_NOTICES}"                   \\
      BUILDDIR="${BUILD_DIR}"                                  \\
      BUILD_MILESTONE="${JTREG_BUILD_MILESTONE}"               \\
