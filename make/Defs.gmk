@@ -51,12 +51,12 @@ else
 DEV_NULL = /dev/null
 endif
 
-ifneq (,$(findstring CYGWIN,$(SYSTEM_UNAME)))
+ifneq (,$(strip $(findstring CYGWIN,$(SYSTEM_UNAME))))
 USING_CYGWIN = true
 USING_CYGWIN_OR_USING_MSYS = true
 endif
 
-ifneq (,$(findstring MSYS,$(SYSTEM_UNAME))$(findstring MINGW,$(SYSTEM_UNAME)))
+ifneq (,$(strip $(findstring MSYS,$(SYSTEM_UNAME))$(findstring MINGW,$(SYSTEM_UNAME))))
 USING_MSYS = true
 USING_CYGWIN_OR_USING_MSYS = true
 endif
