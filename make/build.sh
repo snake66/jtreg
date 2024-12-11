@@ -765,15 +765,15 @@ if [ -n "${SKIP_MAKE:-}" ]; then
     exit
 fi
 
-MAKE=make
+MAKE=$(which make)
 setup_make() {
     case `uname` in
       FreeBSD )
-          MAKE=gmake ;;
+          MAKE=/usr/local/bin/gmake ;;
     esac
 }
 setup_make
-info "MAKE=${MAKE}"
+check_file "${MAKE}"
 
 # save make command for possible later reuse, bypassing this script
 mkdir -p ${BUILD_DIR}
