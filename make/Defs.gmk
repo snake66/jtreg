@@ -80,8 +80,8 @@ endif
 ifndef BUILDDIR
   BUILDDIR = $(TOPDIR)/build
 endif
-# override BUILDDIR := $(call FullPath, $(BUILDDIR))
-# override JDKHOME := $(call FullPath, $(JDKHOME))
+override BUILDDIR := $(call FullPath, $(BUILDDIR))
+override JDKHOME := $(call FullPath, $(JDKHOME))
 
 BUILDTESTDIR=$(BUILDDIR)/test
 
