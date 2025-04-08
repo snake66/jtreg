@@ -46,9 +46,9 @@ jobs:
         bash make/build.sh --skip-download
 
   freebsd-x64:
-	runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-	steps:
+    steps:
       - uses: actions/checkout@v4
       - name: Run tests in FreeBSD
         id: test
@@ -68,5 +68,5 @@ jobs:
             sysctl hw.ncpu
             sysctl hw.physmem
             sysctl hw.usermem
-			bash make/build.sh --jdk /usr/local/openjdk21
-			bash build/make.sh test
+            bash make/build.sh --jdk /usr/local/openjdk21
+            bash build/make.sh test
