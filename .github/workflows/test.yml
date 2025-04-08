@@ -44,3 +44,29 @@ jobs:
         HEADLESS: 1
       run: |
         bash make/build.sh --skip-download
+
+  freebsd-x64:
+	runs-on: ubuntu-latest
+
+	steps:
+      - uses: actions/checkout@v4
+      - name: Run tests in FreeBSD
+        id: test
+        uses: vmactions/freebsd-vm@v1
+        with:
+          usesh: true
+          prepare: |
+            pkg install -y bash curl gmake gnugrep openjdk21
+
+          run: |
+            pwd
+            ls -lah
+            whoami
+            env
+            freebsd-version
+            sysctl hw.model
+            sysctl hw.ncpu
+            sysctl hw.physmem
+            sysctl hw.usermem
+			bash make/build.sh --jdk /usr/local/openjdk21
+			bash build/make.sh test
