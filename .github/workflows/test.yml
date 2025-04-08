@@ -70,3 +70,4 @@ jobs:
             sysctl hw.usermem
             bash make/build.sh --jdk /usr/local/openjdk21
             bash build/make.sh test
+            cat build/test/CleanupDirsTests.agentvm.retain/report/text/summary.txt
