@@ -56,7 +56,7 @@ jobs:
         with:
           usesh: true
           prepare: |
-            pkg install -y bash curl git gmake gnugrep openjdk21
+            pkg install -y bash curl git gmake gnugrep openjdk21 zip
 
           run: |
             pwd
