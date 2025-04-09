@@ -68,6 +68,7 @@ jobs:
             sysctl hw.ncpu
             sysctl hw.physmem
             sysctl hw.usermem
+            git config --global --add safe.directory /home/runner/work/jtreg/jtreg
             bash make/build.sh --jdk /usr/local/openjdk21
             res = bash build/make.sh test
             if [ $res != "0" ]; then
