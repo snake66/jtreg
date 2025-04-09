@@ -69,5 +69,11 @@ jobs:
             sysctl hw.physmem
             sysctl hw.usermem
             bash make/build.sh --jdk /usr/local/openjdk21
-            @bash build/make.sh test
-            cat build/test/CleanupDirsTests.agentvm.retain/report/text/summary.txt
+            res = bash build/make.sh test
+            if [ $res != "0" ]; then
+              echo "=== Summary ==="
+              cat build/test/CleanupTests.agentvm.retain/report/text/summary.txt
+
+              echo "=== trace ==="
+              cat build/test/CleanupTests.agentvm.retain/work/CreateUndeletableFile*.jtr
+            fi
