@@ -54,9 +54,10 @@ jobs:
         id: test
         uses: vmactions/freebsd-vm@v1
         with:
-          usesh: true
           prepare: |
             pkg install -y bash curl git gmake gnugrep openjdk21 zip
+            mount -t fdescfs fdesc /dev/fd
+  	        mount -t procfs proc /proc
 
           run: |
             pwd
@@ -70,7 +71,7 @@ jobs:
             sysctl hw.usermem
             git config --global --add safe.directory /home/runner/work/jtreg/jtreg
             bash make/build.sh --jdk /usr/local/openjdk21
-            bash build/make.sh test
+            @bash build/make.sh test
             if [ $? != "0" ]; then
               echo "=== Summary ==="
               cat build/test/CleanupTests.agentvm.retain/report/text/summary.txt
