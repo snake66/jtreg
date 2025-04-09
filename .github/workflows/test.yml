@@ -57,7 +57,7 @@ jobs:
           prepare: |
             pkg install -y bash curl git gmake gnugrep openjdk21 zip
             mount -t fdescfs fdesc /dev/fd
-  	        mount -t procfs proc /proc
+            mount -t procfs proc /proc
 
           run: |
             pwd
