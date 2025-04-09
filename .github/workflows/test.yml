@@ -69,9 +69,8 @@ jobs:
             sysctl hw.ncpu
             sysctl hw.physmem
             sysctl hw.usermem
-            git config --global --add safe.directory /home/runner/work/jtreg/jtreg
-            bash make/build.sh --jdk /usr/local/openjdk21
-            bash build/make.sh test
+            pw user add -n action -m
+            su action -c 'git config --global --add safe.directory /home/runner/work/jtreg/jtreg && bash make/build.sh --jdk /usr/local/openjdk21 && bash build/make.sh test'
             # if [ $? != "0" ]; then
               echo "=== Summary ==="
               cat build/test/CleanupTests.agentvm.retain/report/text/summary.txt
