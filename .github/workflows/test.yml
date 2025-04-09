@@ -71,10 +71,3 @@ jobs:
             sysctl hw.usermem
             pw user add -n action -m
             su action -c 'git config --global --add safe.directory /home/runner/work/jtreg/jtreg && bash make/build.sh --jdk /usr/local/openjdk21 && bash build/make.sh test'
-            # if [ $? != "0" ]; then
-              echo "=== Summary ==="
-              cat build/test/CleanupTests.agentvm.retain/report/text/summary.txt
-
-              echo "=== trace ==="
-              cat build/test/CleanupTests.agentvm.retain/work/CreateUndeletableFile*.jtr
-            # fi
