@@ -50,10 +50,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Run tests in FreeBSD
-        id: test
+      - name: Initialize FreeBSD VM
+        id: vm
         uses: vmactions/freebsd-vm@v1
         with:
+          sync: nfs
           prepare: |
             pkg install -y bash curl git gmake gnugrep openjdk21 zip
             mount -t fdescfs fdesc /dev/fd
@@ -70,4 +71,15 @@ jobs:
             sysctl hw.physmem
             sysctl hw.usermem
             pw user add -n action -m
-            su action -c 'git config --global --add safe.directory /home/runner/work/jtreg/jtreg && bash make/build.sh --jdk /usr/local/openjdk21 && bash build/make.sh test'
+
+        - name: Build jtreg
+          id: build
+          shell: freebsd {0}
+          run: |
+            su action -c 'git config --global --add safe.directory /home/runner/work/jtreg/jtreg && bash make/build.sh --jdk /usr/local/openjdk21'
+
+        - name: Run tests
+          id: test
+          shell: freebsd {0}
+          run: |
+            su action -c 'bash build/make.sh test'
