@@ -7,11 +7,13 @@ task:
     - pkg install -y bash curl git gmake gnugrep openjdk21 zip
     - mount -t fdescfs fdesc /dev/fd
     - mount -t procfs proc /proc
+    - pw useradd -n jtreg
 
   build_script:
     - echo "[*] Running as user: $(whoami)"
-    - ls -lah
     - bash make/build.sh --jdk /usr/local/openjdk21
 
   test_script:
-    - bash build/make.sh test
+    - mkdir build/test
+    - chown jtreg:wheel build/test
+    - su jtreg -c 'bash build/make.sh test'
