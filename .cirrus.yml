@@ -10,8 +10,7 @@ task:
     - pw useradd -n jtreg
 
   build_script: >
-    su jtreg -c "echo \"[*] Running as user: $(whoami)\" &&
-    cd ${HOME} &&
-    bash make/build.sh --jdk /usr/local/openjdk21"
+    chown jtreg:jtreg ${CIRRUS_VOLUME}/${CIRRUS_WORKING_DIR} &&
+    su jtreg -c "bash make/build.sh --jdk /usr/local/openjdk21"
 
-  test_script: su jtreg -c 'cd ${HOME} && bash build/make.sh test'
+  test_script: su jtreg -c 'bash build/make.sh test'
