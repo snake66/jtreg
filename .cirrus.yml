@@ -9,11 +9,9 @@ task:
     - mount -t procfs proc /proc
     - pw useradd -n jtreg
 
-  build_script:
-    - echo "[*] Running as user: $(whoami)"
-    - bash make/build.sh --jdk /usr/local/openjdk21
+  build_script: >
+    su jtreg -c "echo \"[*] Running as user: $(whoami)\" &&
+    cd ${HOME} &&
+    bash make/build.sh --jdk /usr/local/openjdk21"
 
-  test_script:
-    - mkdir build/test
-    - chown jtreg:wheel build/test
-    - su jtreg -c 'bash build/make.sh test'
+  test_script: su jtreg -c 'cd ${HOME} && bash build/make.sh test'
