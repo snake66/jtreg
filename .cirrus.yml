@@ -7,11 +7,10 @@ task:
     - pkg install -y bash curl git gmake gnugrep openjdk21 zip
     - mount -t fdescfs fdesc /dev/fd
     - mount -t procfs proc /proc
-    - pw user add -n action -m
 
   build_script:
-    - su action -c 'git config --global --add safe.directory $(pwd)'
-    - su action -c 'bash make/build.sh --jdk /usr/local/openjdk21'
+    - echo "[*] Running as user: $(whoami)"
+    - bash make/build.sh --jdk /usr/local/openjdk21
 
   test_script:
-    - su action -c 'bash build/make.sh test'
+    - bash build/make.sh test
