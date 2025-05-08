@@ -10,6 +10,7 @@ task:
 
   build_script:
     - echo "[*] Running as user: $(whoami)"
+    - ls -lah
     - bash make/build.sh --jdk /usr/local/openjdk21
 
   test_script:
